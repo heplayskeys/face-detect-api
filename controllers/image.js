@@ -1,5 +1,5 @@
 const Clarifai = require('clarifai');
-const API_KEY = '3182a39c94ce4db19bb43ddec297b667';
+const API_KEY = process.env.API_CLARIFAI;
 const FACE_DETECT_MODEL = 'c0c0ac362b03416da06ab3fa36fb58e3';
 
 const app = new Clarifai.App({
