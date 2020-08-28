@@ -18,6 +18,20 @@ const registerUser = (db, bcrypt) => (req, res) => {
 	}
 
 	if (password === confirmPassword) {
+		res.setHeader(
+			'Access-Control-Allow-Origin',
+			'https://boiling-brushlands-70070.herokuapp.com'
+		);
+		res.setHeader(
+			'Access-Control-Allow-Methods',
+			'GET, POST, OPTIONS, PUT, PATCH, DELETE'
+		);
+		res.setHeader(
+			'Access-Control-Allow-Headers',
+			'X-Requested-With,content-type'
+		);
+		res.setHeader('Access-Control-Allow-Credentials', true);
+
 		bcrypt.hash(password, 10, (err, hash) => {
 			if (err) throw err;
 
