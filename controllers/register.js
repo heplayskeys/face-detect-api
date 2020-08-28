@@ -13,7 +13,7 @@ const registerUser = (db, bcrypt) => (req, res) => {
 		return res
 			.status(400)
 			.json(
-				'Password must be:\n\t• Between 8 to 15 characters\n\t• Contain at least one lowercase letter\n\t• Contain at least one uppercase letter\n\t• Contain at least one numeric digit\n\t• Contain at least one special character'
+				'Password must be:\n  • Between 8 to 15 characters\n  • Contain at least one lowercase letter\n  • Contain at least one uppercase letter\n  • Contain at least one numeric digit\n  • Contain at least one special character'
 			);
 	}
 
