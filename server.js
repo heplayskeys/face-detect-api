@@ -3,6 +3,7 @@ const session = require('express-session');
 const MemoryStore = require('memorystore')(session);
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
+const helmet = require('helmet');
 const app = express();
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
@@ -27,6 +28,7 @@ const {
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(helmet());
 app.use(cors());
 
 app.use(
@@ -42,9 +44,6 @@ app.use(
 );
 
 app.get('/', (req, res) => {
-	res.set({
-		'Content-Security-Policy': "script-src 'self' https://apis.google.com"
-	});
 	res.sendStatus(200);
 });
 
