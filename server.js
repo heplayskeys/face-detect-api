@@ -41,7 +41,12 @@ app.use(
 	})
 );
 
-app.get('/', (req, res) => res.sendStatus(200));
+app.get('/', (req, res) => {
+	res.set({
+		'Content-Security-Policy': "script-src 'self' https://apis.google.com"
+	});
+	res.sendStatus(200);
+});
 
 app.get('/users', getUsers(db));
 
