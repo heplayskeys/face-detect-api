@@ -7,7 +7,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const app = express();
 
-// process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
 const db = require('knex')({
 	client: 'pg',
