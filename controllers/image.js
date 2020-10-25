@@ -3,7 +3,6 @@ const fs = require('fs');
 const fileType = require('file-type');
 const multiparty = require('multiparty');
 const AWS = require('aws-sdk');
-require('dotenv').config();
 
 const FACE_DETECT_MODEL = process.env.CLARIFAI_FACE_DETECT_MODEL;
 
