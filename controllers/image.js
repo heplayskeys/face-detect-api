@@ -14,7 +14,7 @@ AWS.config.update({
 const s3 = new AWS.S3();
 
 const app = new Clarifai.App({
-	apiKey: process.env.CLARIFAI_API_KEY
+	apiKey: process.env.API_CLARIFAI
 });
 
 const handleClarifaiRequest = async (req, res) => {
