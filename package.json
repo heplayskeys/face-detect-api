@@ -11,15 +11,21 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"aws-sdk": "^2.771.0",
 		"bcryptjs": "^2.4.3",
 		"clarifai": "^2.9.1",
 		"cors": "^2.8.5",
 		"express": "^4.17.1",
 		"express-session": "^1.17.1",
+		"file-type": "^16.0.0",
 		"helmet": "^4.1.1",
+		"jsonwebtoken": "^8.5.1",
 		"knex": "^0.21.5",
 		"memorystore": "^1.6.2",
-		"pg": "^8.3.3"
+		"morgan": "^1.10.0",
+		"multiparty": "^4.2.2",
+		"pg": "^8.3.3",
+		"redis": "^3.0.2"
 	},
 	"devDependencies": {
 		"nodemon": "^2.0.4"
