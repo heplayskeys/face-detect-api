@@ -4,6 +4,7 @@ const MemoryStore = require('memorystore')(session);
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const helmet = require('helmet');
+const morgan = require('morgan');
 const app = express();
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
@@ -18,17 +19,21 @@ const db = require('knex')({
 
 const PORT = process.env.PORT || 3001;
 
-const { registerUser } = require('./controllers/register');
+const { registerUser, updateUserProfile } = require('./controllers/register');
 const { getUsers, getUserProfile } = require('./controllers/users');
-const { signInUser } = require('./controllers/signin');
+const { authenticatedSignIn } = require('./controllers/signin');
 const {
 	handleClarifaiRequest,
-	updateUserEntries
+	updateUserEntries,
+	uploadFile,
+	emptyS3Folder
 } = require('./controllers/image');
+const { requireAuth } = require('./controllers/authorization');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(helmet());
+app.use(morgan('combined'));
 app.use(cors());
 
 app.use(
@@ -49,13 +54,19 @@ app.get('/', (req, res) => {
 
 app.get('/users', getUsers(db));
 
-app.post('/signin', signInUser(db, bcrypt));
+app.post('/signin', authenticatedSignIn(db, bcrypt));
 
 app.post('/register', registerUser(db, bcrypt));
 
-app.get('/profile/:id', getUserProfile(db));
+app.put('/register', requireAuth, updateUserProfile(db, bcrypt));
 
-app.put('/image', updateUserEntries(db));
+app.get('/profile/:id', requireAuth, getUserProfile(db));
+
+app.post('/image/:id', (req, res) => uploadFile(req, res));
+
+app.put('/image', requireAuth, updateUserEntries(db));
+
+app.delete('/image/:id', (req, res) => emptyS3Folder(req, res));
 
 app.post('/imageurl', (req, res) => handleClarifaiRequest(req, res));
 
